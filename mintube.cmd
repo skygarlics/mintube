@@ -32,6 +32,7 @@ exit /b
 echo Load %1%
 echo.
 set /a cnt=0
+set titles[0]=
 set arr[0]=
 for /F "skip=1 tokens=1,2 usebackq delims=," %%A in ("%1") do (
     call :CNTUP "%%A" %%B
@@ -41,6 +42,7 @@ echo.
 set /p channel="Select Channel: "
 call set vid=%%arr[%channel%]%%
 IF "%vid%"=="" echo Index out of range
+call title Now playing %%titles[%channel%]%%
 call :PLAYVID
 exit /b
 
@@ -48,6 +50,7 @@ exit /b
 set /a cnt=cnt+1
 echo|set /p=%cnt% : 
 echo %1
+set titles[%cnt%]=%1
 set arr[%cnt%]=%2
 exit /b
 
